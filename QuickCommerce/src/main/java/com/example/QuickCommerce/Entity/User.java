@@ -11,6 +11,8 @@ public class User {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private double x;
+    private double y;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="cart_id")
     private Cart cart;
