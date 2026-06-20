@@ -19,8 +19,8 @@ public class DarkHouse {
     @OneToOne(cascade= CascadeType.ALL)
     @JoinColumn(name="id")
     private Inventory inventory;
-
-
-
+    public double getDistance(double user_x,double user_y){
+        return Math.abs(user_x-x)+Math.abs(user_y-y);
+    }
 
 }

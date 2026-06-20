@@ -3,7 +3,6 @@ package com.example.QuickCommerce.Entity;
 import jakarta.persistence.*;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Inventory {
     //this class is specific to each DarkHouse
