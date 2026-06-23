@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.engine.internal.Cascade;
 
+import java.util.HashMap;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -16,11 +18,17 @@ public class DarkHouse {
     private double y;
     private String address;
     private int zipcode;
-    @OneToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name="id")
-    private Inventory inventory;
+    @ElementCollection
+    @CollectionTable(name="inventory_table",joinColumns = @JoinColumn(name="id"))
+    @MapKeyColumn(name="sku")
+    @Column(name="qty")
+    HashMap<Integer,Integer> stock=new HashMap<>();
+
     public double getDistance(double user_x,double user_y){
         return Math.abs(user_x-x)+Math.abs(user_y-y);
     }
-
 }
+
+
+
+
