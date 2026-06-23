@@ -5,6 +5,7 @@ import com.example.QuickCommerce.Repository.DarkHouseRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DarkHouseService {
@@ -20,5 +21,13 @@ public class DarkHouseService {
             }
         }
         return validDarkHouse;
+    }
+    //adding inventory
+    public void addInventory(long id,int sku,int qty){
+        DarkHouse darkHouse=darkHouseRepo.findById(id).orElseThrow();
+        HashMap<Integer,Integer> map=darkHouse.getStock();
+        map.put(sku,map.getOrDefault(sku,0)+1);
+        darkHouse.setStock(map);
+        darkHouseRepo.save(darkHouse);
     }
 }
