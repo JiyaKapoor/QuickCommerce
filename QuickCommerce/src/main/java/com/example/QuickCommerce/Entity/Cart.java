@@ -25,8 +25,10 @@ public class Cart {
     public double getTotalCost(){
         double cost=0;
         for(int key:currCartItems.keySet()){
-            double price=productRepo.findById(key).orElseThrow().getPrice();
-            cost+=price;
+            Product product=productRepo.findById(key).orElseThrow();
+            int qty=product.getQty();
+            double price= product.getPrice();
+            cost+=qty * price;
         }
         return cost;
     }
