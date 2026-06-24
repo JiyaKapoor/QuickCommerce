@@ -32,6 +32,9 @@ public class UserService {
         double user_y= user.getY();
         List<DarkHouse> validDarkHouses=darkHouseService.fetchNearestWarehouse(5,user_x,user_y);
         List<Product> products=new ArrayList<>();
+        for(DarkHouse darkHouse:validDarkHouses){
+            HashMap<Integer,Integer> stocks=darkHouse.getStock();
+        }
         return products;
     }
 }
