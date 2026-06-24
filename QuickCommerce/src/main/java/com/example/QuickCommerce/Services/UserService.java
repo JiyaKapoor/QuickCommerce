@@ -4,6 +4,7 @@ import com.example.QuickCommerce.Entity.Cart;
 import com.example.QuickCommerce.Entity.DarkHouse;
 import com.example.QuickCommerce.Entity.Product;
 import com.example.QuickCommerce.Entity.User;
+import com.example.QuickCommerce.Repository.ProductRepo;
 import com.example.QuickCommerce.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +18,8 @@ public class UserService {
     private UserRepo userRepo;
     @Autowired
     private DarkHouseService darkHouseService;
-
+    @Autowired
+    private ProductRepo productRepo;
     public void addItem(int sku,long userId){
         User user=userRepo.findById(userId).orElseThrow();
         Cart user_cart=user.getCart();
@@ -34,6 +36,10 @@ public class UserService {
         List<Product> products=new ArrayList<>();
         for(DarkHouse darkHouse:validDarkHouses){
             HashMap<Integer,Integer> stocks=darkHouse.getStock();
+            for(int sku:stocks.keySet()){
+                Product p=productRepo.findById(sku).orElseThrow();
+                products.add(p);
+            }
         }
         return products;
     }
